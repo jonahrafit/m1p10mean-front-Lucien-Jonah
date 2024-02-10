@@ -1,0 +1,17 @@
+@import 'primeflex/primeflex.css';
+
+#bg {
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets//bg/beauty-salon-bg.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.service-card {
+  max-width: 800px;
+}
