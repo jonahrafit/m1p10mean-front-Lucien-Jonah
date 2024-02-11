@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
@@ -8,10 +8,22 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DockModule } from 'primeng/dock';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-
+import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { LoginComponent } from '../login/login.component';
+import { CommonModule } from '@angular/common';
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
@@ -32,6 +44,12 @@ interface AutoCompleteCompleteEvent {
     FormsModule,
     TableModule,
     TagModule,
+    LoginComponent,
+    CommonModule,
+    // DialogModule,
+    // MatInputModule,
+    // MatFormFieldModule,
+    // ReactiveFormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -41,6 +59,8 @@ export class HomeComponent implements OnInit {
   items: MenuItem[] = [];
   searchData: any;
   selectedItems: any[] | undefined;
+  @Output() visible: boolean = false;
+  // loginForm!: FormGroup;
 
   // Example data for products
   products: any[] = [
@@ -49,9 +69,14 @@ export class HomeComponent implements OnInit {
     { name: 'Product C', price: 9.99, category: 'Accessories', quantity: 15 },
   ];
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private route: Router,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
+    // this.initiateLoginForm();
     this.items = [
       {
         label: 'Finder',
@@ -72,6 +97,13 @@ export class HomeComponent implements OnInit {
     ];
   }
 
+  // private initiateLoginForm() {
+  //   this.loginForm = this.formBuilder.group({
+  //     userName: ['', Validators.email, Validators.required],
+  //     password: ['', Validators.required],
+  //   });
+  // }
+
   search(event: AutoCompleteCompleteEvent) {
     this.searchData = [...Array(10).keys()].map(
       (item) => event.query + '-' + item
@@ -80,5 +112,13 @@ export class HomeComponent implements OnInit {
 
   filterCountry(event: any) {
     console.log(event);
+  }
+
+  toLogin() {
+    this.visible = true;
+  }
+
+  closeModal() {
+    this.visible = false;
   }
 }

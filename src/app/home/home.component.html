@@ -12,7 +12,102 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="margin-top: 10%">
+    <div class="col" style="margin-left: 10%">
+      <div class="row">
+        <div class="col">
+          <mat-card
+            style="background-color: #f8dbb7; width: 90%; margin-right: 10%"
+          >
+            <mat-card-header>
+              <mat-card-title>Bienvenue au Salon de Beauté </mat-card-title>
+              <mat-card-subtitle>Gasy Manja</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p></p>
+              <p>
+                Votre oasis de détente et de rajeunissement. Plongez dans un
+                monde de luxe et de soins personnalisés où chaque visite est une
+                expérience inoubliable. Laissez-nous vous guider vers une beauté
+                éclatante et un bien-être total. Découvrez nos services haut de
+                gamme, nos professionnels expérimentés et notre ambiance
+                chaleureuse. C'est votre moment de vous chouchouter. Réservez
+                dès maintenant et laissez-nous vous dorloter
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button>LIKE</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-card style="background-color: #f8dbb7" class="example-card">
+            <mat-card-header>
+              <mat-card-title
+                >Pour réserver à nos services, veuillez vous connecter ou créer
+                un compte.</mat-card-title
+              >
+            </mat-card-header>
+            <mat-card-actions>
+              <button mat-button (click)="toLogin()">Se connecter</button>
+              <button mat-button>S'inscrire</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="row">
+        <div class="col">
+          <mat-card style="background-color: #dcdcdc; width: 80%">
+            <mat-card-header>
+              <mat-card-title>Service disponible </mat-card-title>
+              <mat-card-subtitle>Gasy Manja</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <span
+                class="p-fluid text-base text-color border-round appearance-none outline-none focus:border-primary w-full"
+              >
+                <p-autoComplete
+                  [(ngModel)]="selectedItems"
+                  [suggestions]="items"
+                  (completeMethod)="filterCountry($event)"
+                  [multiple]="true"
+                ></p-autoComplete>
+              </span>
+              <small
+                >Les services disponibles seront affichés ci-dessous en fonction
+                de votre recherche.</small
+              >
+            </mat-card-content>
+            <mat-card-content>
+              <p-table [value]="products">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prix</th>
+                    <th>Action</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-columns="columns">
+                  <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.quantity }}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row">
     <div class="col d-flex justify-content-start">
       <div>
         <mat-card
@@ -86,5 +181,11 @@
         </mat-card>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
+
+<app-login
+  *ngIf="visible"
+  [visible]="true"
+  (disableModal)="closeModal()"
+></app-login>
