@@ -24,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from '../login/login.component';
 import { CommonModule } from '@angular/common';
+import { InscriptionComponent } from '../inscription/inscription.component';
+import { MatDialog } from '@angular/material/dialog';
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
   query: string;
@@ -46,10 +48,6 @@ interface AutoCompleteCompleteEvent {
     TagModule,
     LoginComponent,
     CommonModule,
-    // DialogModule,
-    // MatInputModule,
-    // MatFormFieldModule,
-    // ReactiveFormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -69,14 +67,9 @@ export class HomeComponent implements OnInit {
     { name: 'Product C', price: 9.99, category: 'Accessories', quantity: 15 },
   ];
 
-  constructor(
-    private messageService: MessageService,
-    private route: Router,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
-    // this.initiateLoginForm();
     this.items = [
       {
         label: 'Finder',
@@ -97,13 +90,6 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  // private initiateLoginForm() {
-  //   this.loginForm = this.formBuilder.group({
-  //     userName: ['', Validators.email, Validators.required],
-  //     password: ['', Validators.required],
-  //   });
-  // }
-
   search(event: AutoCompleteCompleteEvent) {
     this.searchData = [...Array(10).keys()].map(
       (item) => event.query + '-' + item
@@ -120,5 +106,9 @@ export class HomeComponent implements OnInit {
 
   closeModal() {
     this.visible = false;
+  }
+
+  openDialog() {
+    this.dialog.open(InscriptionComponent);
   }
 }

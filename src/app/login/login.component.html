@@ -3,7 +3,9 @@
     header="Se connecter"
     [(visible)]="visible"
     [modal]="true"
-    [style]="{ width: '40vw' }"
+    [style]="{
+      width: '40vw'
+    }"
     [draggable]="false"
     [resizable]="false"
     (onHide)="onHide()"
@@ -24,7 +26,7 @@
       }
     </mat-form-field>
     <mat-form-field class="w-100">
-      <mat-label>Password</mat-label>
+      <mat-label>Mot de passe</mat-label>
       <input type="password" matInput [formControl]="passwordFormControl" />
       @if (passwordFormControl.hasError('required')) {
       <mat-error>Le mot de passe est <strong>requis</strong></mat-error>

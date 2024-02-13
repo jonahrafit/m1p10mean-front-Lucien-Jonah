@@ -1,0 +1,38 @@
+<div style="width: 40vw">
+  <h2 mat-dialog-title>Inscription</h2>
+  <mat-dialog-content>
+    <form [formGroup]="inscriptionFormGroup">
+      <mat-form-field class="w-100">
+        <mat-label>Type d'utilisateur</mat-label>
+        <mat-select>
+          <mat-option value="CLIENT">CLIENT</mat-option>
+          <mat-option value="EMPLOYE">EMPLOYE</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          type="email"
+          matInput
+          placeholder="Ex. pat@example.com"
+        />
+        <span
+          class="text-danger"
+          *ngIf="inscriptionFormGroup.get('email')?.hasError('email')"
+          >Veuillez saisir une adresse e-mail valide</span
+        >
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput />
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Confirmation mot de passe</mat-label>
+        <input type="password" matInput />
+      </mat-form-field>
+      <button class="float-start" mat-button mat-dialog-close>Fermer</button>
+      <button class="float-end" mat-button disabled>S'inscrire</button>
+    </form>
+  </mat-dialog-content>
+</div>
