@@ -8,20 +8,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { DockModule } from 'primeng/dock';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { Router } from '@angular/router';
-import { DialogModule } from 'primeng/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { InscriptionComponent } from '../inscription/inscription.component';
@@ -67,7 +56,7 @@ export class HomeComponent implements OnInit {
     { name: 'Product C', price: 9.99, category: 'Accessories', quantity: 15 },
   ];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
     this.items = [

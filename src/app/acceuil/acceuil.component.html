@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="container">
+    <h1 class="title">
+        <span class="highlight-color">GASYMANJA</span> :
+        <span class="black-color">Votre Source</span> de
+        <span class="violet-color">Bien-Être</span> et de
+        <span class="black-color">Confiance</span>
+    </h1>
+    <div class="image-container">
+        <img src="assets/pngwing.com.png" alt="Beauty Salon Image">
+    </div>
+</div>
+<div class="container">
+    <section class="nos-services">
+        <h2>Nos Services</h2>
+        <div class="services-grid">
+            <div *ngFor="let service of services" class="service-item">
+                <h3>{{ service.nom }}</h3>
+                <p>Durée : {{ service.duree }} minutes</p>
+                <p>Description : {{ service.description }}</p>
+                <p>Prix : {{ service.prix }} €</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<app-footer></app-footer>
