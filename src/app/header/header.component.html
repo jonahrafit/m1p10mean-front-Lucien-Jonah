@@ -3,13 +3,22 @@
         <div class="logo">GASYMANJA</div>
         <div class="auth-buttons">
             <ul class="menu">
-                <li><a href="#">Menu 1</a></li>
-                <li><a href="#">Menu 2</a></li>
-                <li><a href="#">Menu 3</a></li>
+                <li><a href="#">Acceuil</a></li>
+                <li><a href="#nos-services">Nos services</a></li>
+                <li><a href="#a-propos">A propos</a></li>
             </ul>
-
-            <button mat-button class="btn" (click)="toLogin()">Connexion</button>
-            <button mat-button class="btn" (click)="openDialog()">Inscription</button>
+            <ng-container *ngIf="!isLoggedIn; else userLoggedIn">
+                <button class="btn" (click)="toLogin()">Connexion</button>
+                <button class="btn" (click)="openDialog()">Inscription</button>
+            </ng-container>
+            <ng-template #userLoggedIn>
+                <div class="fa-bell-container">
+                    <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+                </div>
+                <div class="user-details">
+                    <span>{{ user.nom }} {{ user.prenom }}</span>
+                </div>
+            </ng-template>
         </div>
     </div>
 </nav>

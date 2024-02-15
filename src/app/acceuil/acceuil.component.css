@@ -1,3 +1,5 @@
+@import '../../styles.scss';
+
 /* CONTENT */
 .title {
     font-size: 2rem;
@@ -25,18 +27,18 @@
 }
 
 .highlight-color {
-    color: #8C85A6;
-    /* Couleur #8C85A6 */
+    color: var(--secondary-color);
+    /* Couleur var(--secondary-color) */
 }
 
 .black-color {
-    color: #161526;
-    /* Couleur #161526 */
+    color: var(--primary-color);
+    /* Couleur var(--primary-color) */
 }
 
 .violet-color {
-    color: #B8B0D9;
-    /* Couleur #B8B0D9 */
+    color: var(--body-color);
+    /* Couleur  var(--secondary-color) */
 }
 
 

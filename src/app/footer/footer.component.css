@@ -1,6 +1,8 @@
+@import '../../styles.scss';
+
 /* FOOTER */
 .footer {
-    background-color: #8C85A6;
+    background-color: var(--secondary-color);
     color: white;
     padding: 20px 0;
 }
@@ -19,7 +21,8 @@
 .contact-info h3,
 .social-links h3,
 .quick-links h3 {
-    color: #161526;
+    color: var(--primary-color);
+    ;
 }
 
 .social-links ul,
@@ -47,4 +50,26 @@
 .copyright {
     text-align: center;
     margin-top: 20px;
+}
+
+#back-to-top-button {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#back-to-top-button:hover {
+    background-color: #0056b3;
 }
