@@ -5,6 +5,8 @@
             <ul class="menu">
                 <li><a href="#">Acceuil</a></li>
                 <li><a href="#nos-services">Nos services</a></li>
+                <li><a routerLink="/manager">Manager</a></li>
+                <li><a routerLink="/employe">Employe</a></li>
                 <li><a href="#a-propos">A propos</a></li>
             </ul>
             <ng-container *ngIf="!isLoggedIn; else userLoggedIn">

@@ -1,4 +1,4 @@
-import { InscriptionComponent } from '../inscription/inscription.component';
+import { InscriptionComponent } from '../auth/inscription/inscription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Component, Output } from '@angular/core';
@@ -13,7 +13,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 @Component({
   selector: 'app-header',
@@ -39,7 +39,7 @@ import { LoginComponent } from '../login/login.component';
 export class HeaderComponent {
 
   @Output() visible: boolean = false;
-  isLoggedIn: boolean = false; // Ajout d'une variable pour suivre l'état de connexion de l'utilisateur
+  isLoggedIn: boolean = true; // Ajout d'une variable pour suivre l'état de connexion de l'utilisateur
   user: any = {
     nom: 'Jonah',
     prenom: 'Fitia'
@@ -58,4 +58,5 @@ export class HeaderComponent {
   openDialog() {
     this.dialog.open(InscriptionComponent);
   }
+
 }
