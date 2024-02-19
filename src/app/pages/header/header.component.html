@@ -21,6 +21,12 @@
                 <div class="user-details">
                     <span>{{ user.nom }} {{ user.prenom }}</span>
                 </div>
+                <div class="fa-logout-container" (click)="openConfirmationModal()">
+                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
+                </div>
+
+                <app-logout-confirmation *ngIf="showConfirmationModalLogout"
+                    (confirmLogout)="logout()"></app-logout-confirmation>
             </ng-template>
         </div>
     </div>
