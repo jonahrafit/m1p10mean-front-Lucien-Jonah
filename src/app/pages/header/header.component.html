@@ -5,9 +5,9 @@
             <ul class="menu">
                 <li><a href="#">Acceuil</a></li>
                 <li><a href="#nos-services">Nos services</a></li>
-                <li><a routerLink="/manager">Manager</a></li>
-                <li><a routerLink="/employe">Employe</a></li>
-                <li><a href="/rendez-vous">Rendez-vous</a></li>
+
+                <li><a routerLink="/manage/employe">Gestion des employés</a></li>
+                <li><a routerLink="/manage/service">Gestion des services</a></li>
                 <li><a href="#a-propos">A propos</a></li>
             </ul>
             <ng-container *ngIf="!isLoggedIn; else userLoggedIn">
@@ -16,7 +16,8 @@
             </ng-container>
             <ng-template #userLoggedIn>
                 <div class="fa-bell-container">
-                    <i class="fa fa-bell fa-lg" aria-hidden="true"></i>
+                    <mat-icon matBadge="15" matBadgeColor="warn" class="mat-icon notranslate mat-badge"
+                        aria-hidden="false">notifications</mat-icon>
                 </div>
                 <div class="user-details">
                     <span>{{ user.nom }} {{ user.prenom }}</span>

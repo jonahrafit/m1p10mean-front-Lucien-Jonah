@@ -1,17 +1,14 @@
-<!-- Sélecteur de statut 
-<mat-form-field>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher...">
-</mat-form-field>
+<h1 mat-title class="mat-primary">Liste des employées</h1>
 
-    <mat-form-field>
-        <mat-label>Statut</mat-label>
-        <mat-select (change)="applyFilterByStatus($event)">
-            <mat-option value="nonConfirme">Non confirmé</mat-option>
+<mat-form-field>
+    <mat-label>Selection le status</mat-label>
+    <mat-select [(value)]="statusSelected" (selectionChange)="applyFilterByStatus()">
+        <mat-option value="tous">Tous</mat-option>
+        <mat-option value="nonConfirme">Non confirmé</mat-option>
         <mat-option value="nonValide">Non validé</mat-option>
         <mat-option value="valide">Validé</mat-option>
     </mat-select>
 </mat-form-field>
--->
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -56,12 +53,17 @@
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
             'non-validé': !element.estValide
-          }">
+        }">
             <button *ngIf="!element.estValide" (click)="validerMail()">Valider</button>
+            <button mat-icon-button *ngIf="!element.estValide" (click)="goToDetailsPage(element.email)">
+                <mat-icon>details</mat-icon>
+            </button>
         </td>
+
     </ng-container>
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<br>

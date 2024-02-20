@@ -15,7 +15,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { LoginComponent } from '../auth/login/login.component';
 import { LogoutConfirmationComponent } from '../logout-confirmation/logout-confirmation.component';
-
+import {MatBadgeModule} from '@angular/material/badge';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -24,6 +24,7 @@ import { LogoutConfirmationComponent } from '../logout-confirmation/logout-confi
     ToastModule,
     MatCardModule,
     MatIconModule,
+    MatBadgeModule,
     MatDividerModule,
     MatButtonModule,
     DockModule,
@@ -48,8 +49,10 @@ export class HeaderComponent {
     nom: 'Jonah',
     prenom: 'Fitia'
   };
+  decodedToken: any = '';
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {
+  }
 
   toLogin() {
     this.visible = true;

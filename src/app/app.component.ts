@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './pages/header/header.component';
@@ -10,10 +10,9 @@ import { HttpClientModule } from '@angular/common/http';
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HttpClientModule],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent, HttpClientModule]
 })
 
 export class AppComponent {
   title = 'salon-beaute';
-
 }
