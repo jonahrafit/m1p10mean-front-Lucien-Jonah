@@ -1,0 +1,31 @@
+<div class="container">
+    <h1 class="title">
+        <span class="highlight-color">GASYMANJA</span><br />
+        <span class="black-color">Votre Source</span> de
+        <span class="violet-color">Bien-Être</span> et de
+        <span class="black-color">Confiance</span>
+    </h1>
+    <div class="image-container">
+        <img src="assets/pngwing.com.png" alt="Beauty Salon Image">
+    </div>
+</div>
+<div class="container">
+    <div id="nos-services">
+        <section class="nos-services">
+            <h2>Nos Services ({{ services.length }})</h2>
+            <div class="services-grid">
+                <div *ngFor="let service of currentServices" class="service-item">
+                    <h3>{{ service.nom }}</h3>
+                    <p>Durée : {{ service.duree }} minutes</p>
+                    <p>Description : {{ service.description }}</p>
+                    <p>Prix : {{ service.prix }} €</p>
+                </div>
+            </div>
+            <div class="pagination">
+                <button class="btn-page" (click)="previousPage()">Précédent</button>
+                <p>Page {{ currentPage }} / {{ totalPages }}</p>
+                <button [disabled]="currentPage === totalPages" class="btn-page" (click)="nextPage()">Suivant</button>
+            </div>
+        </section>
+    </div>
+</div>

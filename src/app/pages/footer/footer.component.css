@@ -1,0 +1,75 @@
+@import '../../../styles.scss';
+
+/* FOOTER */
+.footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.contact-info,
+.social-links,
+.quick-links {
+    flex: 1;
+}
+
+.contact-info h3,
+.social-links h3,
+.quick-links h3 {
+    color: var(--primary-color);
+    ;
+}
+
+.social-links ul,
+.quick-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links ul li,
+.quick-links ul li {
+    margin-bottom: 10px;
+}
+
+.social-links a,
+.quick-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.social-links a:hover,
+.quick-links a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#back-to-top-button {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#back-to-top-button:hover {
+    background-color: #0056b3;
+}

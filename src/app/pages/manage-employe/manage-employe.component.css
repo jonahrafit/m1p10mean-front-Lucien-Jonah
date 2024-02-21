@@ -1,0 +1,11 @@
+.non-confirmé {
+    color: red;
+}
+
+.non-validé {
+    color: orange;
+}
+
+.validé {
+    color: green;
+}
