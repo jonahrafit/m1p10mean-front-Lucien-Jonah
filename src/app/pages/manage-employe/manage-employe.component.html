@@ -54,14 +54,10 @@
         <td mat-cell *matCellDef="let element" [ngClass]="{
             'non-validé': !element.estValide
         }">
-            <button *ngIf="!element.estValide" (click)="validerMail()">Valider</button>
-            <button mat-icon-button *ngIf="!element.estValide" (click)="goToDetailsPage(element.email)">
-                <mat-icon>details</mat-icon>
-            </button>
+            <button *ngIf="!element.estValide" (click)="validerMail()">Valider</button>&nbsp;
+            <button (click)="goToDetailsPage(element._id)">Voir Details</button>
         </td>
-
     </ng-container>
-
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

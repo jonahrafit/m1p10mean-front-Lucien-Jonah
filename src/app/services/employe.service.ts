@@ -1,4 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 export interface TempEmploye {
+    _id: Object,
     nom: String,
     prenom: String,
     email: String,
@@ -10,6 +12,7 @@ export interface TempEmploye {
 const ELEMENT_DATA: TempEmploye[] =
     [
         {
+            _id: uuidv4(),
             nom: "Doe",
             prenom: "John",
             email: "john.doe@example.com",
@@ -18,6 +21,7 @@ const ELEMENT_DATA: TempEmploye[] =
             tauxCommission: 0.15
         },
         {
+            _id: uuidv4(),
             nom: "Smith",
             prenom: "Alice",
             email: "alice.smith@example.com",
@@ -26,6 +30,7 @@ const ELEMENT_DATA: TempEmploye[] =
             tauxCommission: 0.12
         },
         {
+            _id: uuidv4(),
             nom: "Johnson",
             prenom: "Michael",
             email: "michael.johnson@example.com",
@@ -34,6 +39,7 @@ const ELEMENT_DATA: TempEmploye[] =
             tauxCommission: 0.18
         },
         {
+            _id: uuidv4(),
             nom: "Hernandez",
             prenom: "Daniel",
             email: "daniel.hernandez@example.com",

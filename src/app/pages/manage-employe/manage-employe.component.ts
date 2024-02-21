@@ -64,7 +64,8 @@ export class ManageEmployeComponent implements OnInit {
     alert('validation email');
   }
 
-  goToDetailsPage(id: string) {
-    this.router.navigateByUrl('/' + id);
+  goToDetailsPage(_id: string) {
+    console.log(_id);
+    this.router.navigateByUrl('manage/employe/' + _id);
   }
 }
