@@ -25,7 +25,7 @@ export class AcceuilComponent {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<ServiceData>(`${this.apiUrl}/service/${this.page}/${this.size}`)
+    this.http.get<ServiceData>(`${this.apiUrl}/services/${this.page}/${this.size}`)
       .subscribe(data => {
         this.services = data.services;
       });
