@@ -1,6 +1,6 @@
 <mat-card class="example-card">
     <mat-card-header>
-        <mat-card-title>{{nom}}{{prenom}}</mat-card-title>
+        <mat-card-title>{{nom}} {{prenom}}</mat-card-title>
         <mat-card-subtitle>Employé / Coupe et couture</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -13,10 +13,40 @@
 <div style="display: flex; justify-content: space-between;">
     <mat-card class="example-card" style="width: 20%;">
         <mat-card-header>
-            <mat-card-title>Ses derniers tâches</mat-card-title>
+            <mat-card-title>Horaire de travail</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            Contenu de la carte - 8 colonnes
+            <mat-list>
+                <mat-list-item>
+                    <span matListItemTitle>Lundi</span>
+                    <span matListItemLine>08:00 - 15:00</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Mardi</span>
+                    <span matListItemLine>08:00 - 15:00</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Mercredi</span>
+                    <span matListItemLine>08:00 - 16:00</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Jeudi</span>
+                    <span matListItemLine>08:00 - 15:00</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Vendredi</span>
+                    <span matListItemLine>08:00 - 17:00</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Samedi</span>
+                    <span matListItemLine>-</span>
+                </mat-list-item>
+                <mat-list-item>
+                    <span matListItemTitle>Dimanche</span>
+                    <span matListItemLine>-</span>
+                </mat-list-item>
+            </mat-list>
+
         </mat-card-content>
     </mat-card>
 
