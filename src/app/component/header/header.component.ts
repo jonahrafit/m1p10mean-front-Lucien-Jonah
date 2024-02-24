@@ -1,4 +1,3 @@
-import { InscriptionComponent } from '../auth/inscription/inscription.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
@@ -13,9 +12,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { LoginComponent } from '../auth/login/login.component';
-import { LogoutConfirmationComponent } from '../logout-confirmation/logout-confirmation.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
+import { InscriptionComponent } from '../../modals/inscription/inscription.component';
+import { LoginComponent } from '../../modals/login/login.component';
+import { LogoutConfirmationComponent } from '../../modals/logout-confirmation/logout-confirmation.component';
 @Component({
   selector: 'app-header',
   standalone: true,

@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { CalendarTestComponent } from '../calendar-test/calendar-test.component';
+import { CalendarTestComponent } from '../../component/calendar-test/calendar-test.component';
 import { MatListModule } from '@angular/material/list';
 
 @Component({

@@ -7,8 +7,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { INITIAL_EVENTS } from '../../../services/events.utils';
-import { createEventId } from '../../../services/events.utils';
+import { INITIAL_EVENTS } from '../../services/events.utils';
+import { createEventId } from '../../services/events.utils';
 
 @Component({
   standalone: true,
