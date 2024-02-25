@@ -7,13 +7,31 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { DialogModule } from 'primeng/dialog';
 
 import { HoraireOuvertureComponent } from '../../component/horaire-ouverture/horaire-ouverture.component';
-import { SalonService, SalonServiceModel } from '../../services/salonService.service';
+import { SalonService } from '../../services/salonService/salon.service';
+import { catchError } from 'rxjs';
+// import { SalonService, SalonServiceModel } from '../../services/salonService.service';
 interface ServiceData {
   page: number;
   size: number;
   services: any[]; // Vous pouvez remplacer any[] par le type spécifique des services si vous le connaissez
+}
+
+interface SalonServiceModel {
+  page: number,
+  size: number,
+  total: number,
+  services: Salon[]
+}
+
+interface Salon {
+  _id: string,
+  nom: string,
+  prix: number,
+  duree: number,
+  commission: number
 }
 
 @Component({
@@ -27,58 +45,50 @@ interface ServiceData {
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    HoraireOuvertureComponent
+    HoraireOuvertureComponent, DialogModule
   ],
   templateUrl: './acceuil.component.html',
   styleUrls: ['./acceuil.component.css']
 })
 export class AcceuilComponent {
   title = 'salon-beaute';
-  showFormulaireGetRDV: boolean = true;
-  dataSource: SalonServiceModel[] = [];
+  salonServicesData!: SalonServiceModel;
+  currentPage: number = 1;
+  pageSize: number = 4;
+  totalPages: number = 0;
+  serviceIdSelected!: string;
+  showModalRendezVous = false;
 
   constructor(private http: HttpClient, private salonService: SalonService) {
   }
 
   ngOnInit(): void {
-    this.dataSource = this.salonService.getSalonServices();
-    /* 
-    this.http.get<ServiceData>(`${this.apiUrl}/services/${this.page}/${this.size}`)
-      .subscribe(data => {
-        this.services = data.services;
-      });
-      */
+    this.getSalonServices(this.currentPage, this.pageSize);
   }
 
-  currentPage: number = 1;
-  pageSize: number = 4;
-  totalPages: number = 0;
-
-  get currentServices(): any[] {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    this.totalPages = Math.ceil(this.dataSource.length / this.pageSize);
-    return this.dataSource.slice(startIndex, startIndex + this.pageSize);
+  private getSalonServices(page = 1, size = 4) {
+    this.salonService.getServices(page, size).subscribe(data => {
+      console.log("🚀 ~ AcceuilComponent ~ this.salonService.getServices ~ data:", data);
+      this.salonServicesData = data as SalonServiceModel;
+      this.totalPages = Math.ceil(this.salonServicesData.total / size);
+    });
   }
+
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
+    this.getSalonServices(this.currentPage, this.pageSize);
   }
 
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+    this.getSalonServices(this.currentPage, this.pageSize);
   }
 
-  setShowFormulaireRDV() {
-    this.showFormulaireGetRDV = true;
-  }
-
-  setHiddenFormulaireRDV() {
-    this.showFormulaireGetRDV = false;
-  }
 
   /* exemple pour simulation */
   invoiceItems: any[] = [
@@ -88,8 +98,10 @@ export class AcceuilComponent {
 
   displayedColumns: string[] = ['name', 'duration', 'price'];
 
-  calculateTotal(): number {
-    return this.invoiceItems.reduce((acc, curr) => acc + curr.price, 0);
+
+  prendreRendezVous(serviceId: string) {
+    this.serviceIdSelected = serviceId;
+    this.showModalRendezVous = true;
   }
 
 }
