@@ -42,7 +42,7 @@
             'validé': element.estConfirme && element.estValide
           }">
             {{ !element.estValide ?
-            'Mail non validé' :
+            'En attente de validation' :
             !element.estConfirme ?
             'Mail non confirmé' :
             'Mail Validé' }}
@@ -55,7 +55,7 @@
             'non-validé': !element.estValide
         }">
             <button *ngIf="!element.estValide" (click)="validerMail()">Valider</button>&nbsp;
-            <button (click)="goToDetailsPage(element._id)">Voir Details</button>
+            <button (click)="goToDetailsPage(element._id)">Voir Info.</button>
         </td>
     </ng-container>
 
