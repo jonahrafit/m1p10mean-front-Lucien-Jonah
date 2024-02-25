@@ -67,6 +67,7 @@ export class AcceuilComponent {
   serviceIdSelected!: string;
   showModalRendezVous = false;
   dateRendezVous: Date | undefined;
+  employeeHasService!: IEmployeeResponse;
 
   constructor(private http: HttpClient, private salonService: SalonService, private employeService: EmployeeService) {
   }
@@ -116,9 +117,12 @@ export class AcceuilComponent {
     // 
   }
 
-  getEmployeesHasService(serviceId: string) {
+  // getEmployeesHasService(serviceId: string) {
+  //   this.employeService.getEmployeeHasService(serviceId, 1, 10)
+  //     .subscribe(response => {
 
-  }
+  //     })
+  // }
 
 
 }
