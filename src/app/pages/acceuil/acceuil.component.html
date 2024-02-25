@@ -1,83 +1,93 @@
 <div class="container">
-    <div class="example-card" style="width: 80%;">
-        <div class="image-container" style="position: relative;">
-            <img src="assets/pngwing.com.png" style="width: 50%; top: 0; right: 0;" alt="Beauty Salon Image">
-            <h1 class="title" style="position: absolute; left: 50%; top: 50%;">
-                <span class="highlight-color">GASYMANJA</span><br />
-                <span class="black-color">Votre Source</span> de
-                <span class="violet-color">Bien-Être</span> et de
-                <span class="black-color">Confiance</span>
-            </h1>
+  <div class="example-card" style="width: 80%;">
+    <div class="image-container" style="position: relative;">
+      <img src="assets/pngwing.com.png" style="width: 50%; top: 0; right: 0;" alt="Beauty Salon Image">
+      <h1 class="title" style="position: absolute; left: 50%; top: 50%;">
+        <span class="highlight-color">GASYMANJA</span><br />
+        <span class="black-color">Votre Source</span> de
+        <span class="violet-color">Bien-Être</span> et de
+        <span class="black-color">Confiance</span>
+      </h1>
 
-            <button class="reserve-button2">Voir services</button>
-        </div>
+      <button class="reserve-button2">Voir services</button>
     </div>
-    <app-horaire-ouverture width="20%"></app-horaire-ouverture>
+  </div>
+  <app-horaire-ouverture width="20%"></app-horaire-ouverture>
 </div>
 
 <div class="container">
-    <div id="nos-services">
-        <ng-container *ngIf="!showFormulaireGetRDV">
-            <section class="nos-services">
-                <h3>Nos Services ({{ dataSource.length }})</h3>
-                <button (click)="setShowFormulaireRDV()">Prestations séléctionnés {{ '>>' }}</button>
-                <div class="services-grid">
-                    <div *ngFor="let service of currentServices" class="service-item">
-                        <mat-card class="example-card">
-                            <mat-card-header>
-                                <mat-card-title>
-                                    <h4>{{ service.nom }}</h4>
-                                </mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content>
-                                <p><mat-icon>schedule</mat-icon> {{ service.duree }} minutes</p>
-                                <p><mat-icon>money</mat-icon> {{ service.prix }} Ar</p>
-                            </mat-card-content>
-                            <mat-card-actions>
-                                <button mat-stroked-button color="accent">Prendre RDV</button>
-                            </mat-card-actions>
-                        </mat-card>
-                    </div>
-                </div>
-                <div class="pagination">
-                    <button class="btn-page" (click)="previousPage()">Précédent</button>
-                    <p>Page {{ currentPage }} / {{ totalPages }}</p>
-                    <button [disabled]="currentPage === totalPages" class="btn-page"
-                        (click)="nextPage()">Suivant</button>
-                </div>
-            </section>
-        </ng-container>
+  <div id="nos-services">
+    <section class="nos-services">
+      <h3>Nos Services ({{ salonServicesData.total }})</h3>
+      <div class="services-grid">
+        <div *ngFor="let service of salonServicesData.services" class="service-item">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>
+                <h4>{{ service.nom }}</h4>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                <mat-icon>schedule</mat-icon> {{ service.duree }} minutes
+              </p>
+              <p>
+                <mat-icon>money</mat-icon> {{ service.prix }} Ar
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-stroked-button (click)="prendreRendezVous(service._id)" color="accent">Prendre RDV</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      <div class="pagination">
+        <button class="btn-page" (click)="previousPage()">Précédent</button>
+        <p>Page {{ currentPage }} / {{ totalPages }}</p>
+        <button [disabled]="currentPage === totalPages" class="btn-page" (click)="nextPage()">Suivant</button>
+      </div>
+    </section>
 
-        <ng-container *ngIf="showFormulaireGetRDV">
-            <section class="nos-services">
-                <h3>Prestation séléctionnés</h3>
-                <button (click)="setHiddenFormulaireRDV()"> {{ '<<' }} Liste des services</button>
-                        <!-- invoice.component.html -->
-                        <mat-table [dataSource]="invoiceItems" class="mat-elevation-z8">
-                            <!-- Columns -->
-                            <ng-container matColumnDef="name">
-                                <mat-header-cell *matHeaderCellDef> Designation </mat-header-cell>
-                                <mat-cell *matCellDef="let item"> {{ item.name }} </mat-cell>
-                            </ng-container>
+    <ng-container *ngIf="true">
+      <section class="nos-services">
+        <h3>Prestation séléctionnés</h3>
+        <!-- invoice.component.html -->
+        <mat-table [dataSource]="invoiceItems" class="mat-elevation-z8">
+          <!-- Columns -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Designation </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.name }} </mat-cell>
+          </ng-container>
 
-                            <ng-container matColumnDef="duration">
-                                <mat-header-cell *matHeaderCellDef> Durée </mat-header-cell>
-                                <mat-cell *matCellDef="let item"> {{ item.duration }} </mat-cell>
-                            </ng-container>
+          <ng-container matColumnDef="duration">
+            <mat-header-cell *matHeaderCellDef> Durée </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.duration }} </mat-cell>
+          </ng-container>
 
-                            <ng-container matColumnDef="price">
-                                <mat-header-cell *matHeaderCellDef> Prix </mat-header-cell>
-                                <mat-cell *matCellDef="let item"> {{ item.price }} </mat-cell>
-                            </ng-container>
+          <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Prix </mat-header-cell>
+            <mat-cell *matCellDef="let item"> {{ item.price }} </mat-cell>
+          </ng-container>
 
-                            <!-- Add more columns as needed -->
+          <!-- Add more columns as needed -->
 
-                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-                        </mat-table>
+        </mat-table>
 
-            </section>
-        </ng-container>
-    </div>
+      </section>
+    </ng-container>
+  </div>
 </div>
+
+
+<p-dialog header="Prendre rendez-vous" [(visible)]="showModalRendezVous" [modal]="true" [style]="{ width: '50vw' }"
+  [draggable]="false" [resizable]="false">
+  <p class="m-0">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+</p-dialog>
