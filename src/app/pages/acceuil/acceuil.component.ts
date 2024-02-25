@@ -8,10 +8,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DialogModule } from 'primeng/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { CalendarModule } from 'primeng/calendar';
 
 import { HoraireOuvertureComponent } from '../../component/horaire-ouverture/horaire-ouverture.component';
 import { SalonService } from '../../services/salonService/salon.service';
 import { catchError } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { EmployeeService } from '../../services/employee/employee.service';
 // import { SalonService, SalonServiceModel } from '../../services/salonService.service';
 interface ServiceData {
   page: number;
@@ -45,7 +49,11 @@ interface Salon {
     MatIconModule,
     MatButtonModule,
     MatTableModule,
-    HoraireOuvertureComponent, DialogModule
+    HoraireOuvertureComponent,
+    DialogModule,
+    MatSelectModule,
+    CalendarModule,
+    FormsModule
   ],
   templateUrl: './acceuil.component.html',
   styleUrls: ['./acceuil.component.css']
@@ -58,8 +66,10 @@ export class AcceuilComponent {
   totalPages: number = 0;
   serviceIdSelected!: string;
   showModalRendezVous = false;
+  dateRendezVous: Date | undefined;
+  employeeHasService!: IEmployeeResponse;
 
-  constructor(private http: HttpClient, private salonService: SalonService) {
+  constructor(private http: HttpClient, private salonService: SalonService, private employeService: EmployeeService) {
   }
 
   ngOnInit(): void {
@@ -101,7 +111,18 @@ export class AcceuilComponent {
 
   prendreRendezVous(serviceId: string) {
     this.serviceIdSelected = serviceId;
+    this.dateRendezVous = new Date();
     this.showModalRendezVous = true;
+    // TODO: GET EMPLOYEES WHICH HAS THE SERVICE SELECTED
+    // 
   }
+
+  // getEmployeesHasService(serviceId: string) {
+  //   this.employeService.getEmployeeHasService(serviceId, 1, 10)
+  //     .subscribe(response => {
+
+  //     })
+  // }
+
 
 }

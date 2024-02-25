@@ -24,4 +24,6 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class HoraireOuvertureComponent {
   @Input() width: string = '20%';
+  @Input() horaireTravail: any;
+  @Input() title!: string;
 }
