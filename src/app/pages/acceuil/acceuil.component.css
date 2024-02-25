@@ -2,130 +2,130 @@
 
 /* CONTENT */
 .title {
-    font-size: 2rem;
-    margin-right: 20px;
+  font-size: 2rem;
+  margin-right: 20px;
 }
 
 .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .image-container {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .image-container img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
 
 .title {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .highlight-color {
-    color: var(--secondary-color);
-    /* Couleur var(--secondary-color) */
+  color: var(--secondary-color);
+  /* Couleur var(--secondary-color) */
 }
 
 .black-color {
-    color: var(--primary-color);
-    /* Couleur var(--primary-color) */
+  color: var(--primary-color);
+  /* Couleur var(--primary-color) */
 }
 
 .violet-color {
-    color: var(--body-color);
-    /* Couleur  var(--secondary-color) */
+  color: var(--body-color);
+  /* Couleur  var(--secondary-color) */
 }
 
 
 /* services */
 .nos-services {
-    padding: 20px;
+  padding: 20px;
 }
 
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* Trois colonnes égales */
-    grid-gap: 20px;
-    /* Espacement entre les éléments */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* Trois colonnes égales */
+  grid-gap: 20px;
+  /* Espacement entre les éléments */
 }
 
 .service-item {
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    /* Ombre légère */
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  /* Ombre légère */
 }
 
 .service-item h3 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .service-item p {
-    margin: 0;
+  margin: 0;
 }
 
 .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }
 
 .btn-page {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-page:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 
 /* RESAKA RENDEZ-vous */
 .reserve-button {
-    position: absolute;
-    left: 50%;
-    bottom: 20px;
-    /* Ajustez la valeur en fonction de la hauteur désirée */
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  /* Ajustez la valeur en fonction de la hauteur désirée */
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .reserve-button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .reserve-button2 {
-    position: absolute;
-    left: 65%;
-    bottom: 20px;
-    /* Ajustez la valeur en fonction de la hauteur désirée */
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #e2abc6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+  position: absolute;
+  left: 65%;
+  bottom: 20px;
+  /* Ajustez la valeur en fonction de la hauteur désirée */
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #e2abc6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 
