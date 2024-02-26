@@ -1,4 +1,21 @@
-<h1>{{ data.title }}</h1>
-<p><strong>Date de début:</strong> {{ data.start }}</p>
-<p><strong>Date de fin:</strong> {{ data.end }}</p>
-<button mat-button (click)="onCloseClick()">Fermer</button>
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Client</h3>
+    <p>Client: {{ data.extendedProps['client'].nom }}</p>
+    <h3>Service</h3>
+    <p>Nom du service: {{ data.extendedProps['services'].nom }} minutes</p>
+    <p>Durée: {{ data.extendedProps['services'].duree }} minutes</p>
+    <p>{{ data.extendedProps['services'].fait ? 'FAIT!' : 'NON FAIT!'}}</p>
+    <h3>Date du rendez-vous : {{data.extendedProps['services'].date_rendez_vous}}</h3>
+    <mat-dialog-actions>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <button mat-button mat-dialog-close>Annuler ce rendez-vous</button>&nbsp;
+                <button mat-button (click)="onCloseClick()" cdkFocusInitial>Fermer</button>&nbsp;&nbsp;
+            </div>
+            <div>
+                <button mat-button (click)="onCloseClick()" cdkFocusInitial>Marquer comme FAIT</button>
+            </div>
+        </div>
+    </mat-dialog-actions>
+</mat-dialog-content>

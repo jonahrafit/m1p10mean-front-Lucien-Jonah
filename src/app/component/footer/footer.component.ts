@@ -8,12 +8,12 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  // scrollToTop() {
+  //  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // }
 
   // Détecte le défilement de la page pour afficher ou masquer le bouton de retour vers le haut
-  @HostListener('window:scroll', [])
+  /* @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollY = window.scrollY;
     const backToTopButton = document.getElementById('back-to-top-button');
@@ -24,5 +24,5 @@ export class FooterComponent {
         backToTopButton.style.display = 'none';
       }
     }
-  }
+  } */
 }

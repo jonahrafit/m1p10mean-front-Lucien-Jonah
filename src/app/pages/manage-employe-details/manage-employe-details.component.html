@@ -1,61 +1,65 @@
 <mat-card class="example-card">
-    <mat-card-header>
-        <mat-card-title>{{nom}} {{prenom}}</mat-card-title>
-        <mat-card-subtitle>Employé / Coupe et couture</mat-card-subtitle>
-    </mat-card-header>
     <mat-card-content>
         <div style="display: flex; justify-content: space-between;">
-            <p>{{email}}</p>
-            <p>Temps moyen de travail : <span style="font-weight: bold; font-size: 30px;">7,5</span> heures / jour</p>
+            <div *ngIf="employee">
+                <h2>{{employee.nom}} {{employee.prenom}}</h2>
+                <p>Employé / Coupe et couture<br />{{employee.email}}</p>
+            </div>
+            <div>
+                <p>Taux de commission : <span style="font-weight: bold; font-size: 30px;">{{
+                        employee?.tauxCommission }}</span></p>
+                <p>Temps moyen de travail : <span style="font-weight: bold; font-size: 30px;">7,5</span> heures / jour
+                </p>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>
 <div style="display: flex; justify-content: space-between;">
-    <mat-card class="example-card" style="width: 20%;">
+    <mat-card class="example-card" style="width: 100%;">
         <mat-card-header>
-            <mat-card-title>Horaire de travail</mat-card-title>
+            <mat-card-title>Agenda</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <mat-list>
-                <mat-list-item>
-                    <span matListItemTitle>Lundi</span>
-                    <span matListItemLine>08:00 - 15:00</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Mardi</span>
-                    <span matListItemLine>08:00 - 15:00</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Mercredi</span>
-                    <span matListItemLine>08:00 - 16:00</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Jeudi</span>
-                    <span matListItemLine>08:00 - 15:00</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Vendredi</span>
-                    <span matListItemLine>08:00 - 17:00</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Samedi</span>
-                    <span matListItemLine>-</span>
-                </mat-list-item>
-                <mat-list-item>
-                    <span matListItemTitle>Dimanche</span>
-                    <span matListItemLine>-</span>
-                </mat-list-item>
-            </mat-list>
+            <div class='demo-app'>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>Horaire de travail
+                            <mat-icon (click)="openModalAjoutHoraireTravail()"
+                                style="color: chartreuse;">add_circle</mat-icon>
+                        </mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-list>
+                            <ng-container *ngFor="let jour of joursSemaine">
+                                <mat-list-item>
+                                    <span matListItemTitle>{{ jour }}</span>
+                                    <span matListItemLine class="auto-height">
+                                        <ng-container *ngIf="employee?.horaireTravail">
+                                            <ng-container *ngFor="let horaire of employee?.horaireTravail">
+                                                <ng-container *ngIf="horaire.jour === jour">
+                                                    <ng-container *ngIf="horaireEstActif(horaire.date_creation)">
+                                                        <span [innerHTML]="formatPlagesHoraires(horaire.temps)"></span>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </ng-container>
+                                    </span>
+                                </mat-list-item>
+                            </ng-container>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
 
-        </mat-card-content>
-    </mat-card>
+                <div class='demo-app-main'>
+                    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+                        <ng-template #eventContent let-arg>
+                            <b>{{ arg.timeText }}</b>
+                            <i>{{ arg.event.title }}</i>
+                        </ng-template>
+                    </full-calendar>
+                </div>
 
-    <mat-card class="example-card" style="width: 80%;">
-        <mat-card-header>
-            <mat-card-title>Son horaire de travail</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <app-calendar-test></app-calendar-test>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

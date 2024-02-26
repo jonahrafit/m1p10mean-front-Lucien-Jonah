@@ -18,7 +18,7 @@
 <div class="container">
   <div id="nos-services">
     <section class="nos-services">
-      <h3>Nos Services ({{ salonServicesData.total }})</h3>
+      <h3>Nos Services</h3>
       <div class="services-grid">
         <div *ngFor="let service of salonServicesData.services" class="service-item">
           <mat-card class="example-card">
@@ -47,84 +47,49 @@
         <button [disabled]="currentPage === totalPages" class="btn-page" (click)="nextPage()">Suivant</button>
       </div>
     </section>
-
-    <ng-container *ngIf="true">
-      <section class="nos-services">
-        <h3>Prestation séléctionnés</h3>
-        <!-- invoice.component.html -->
-        <mat-table [dataSource]="invoiceItems" class="mat-elevation-z8">
-          <!-- Columns -->
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Designation </mat-header-cell>
-            <mat-cell *matCellDef="let item"> {{ item.name }} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="duration">
-            <mat-header-cell *matHeaderCellDef> Durée </mat-header-cell>
-            <mat-cell *matCellDef="let item"> {{ item.duration }} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="price">
-            <mat-header-cell *matHeaderCellDef> Prix </mat-header-cell>
-            <mat-cell *matCellDef="let item"> {{ item.price }} </mat-cell>
-          </ng-container>
-
-          <!-- Add more columns as needed -->
-
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-        </mat-table>
-
-      </section>
-    </ng-container>
-  </div>
-</div>
-
-
-<p-dialog header="Prendre rendez-vous" [(visible)]="showModalRendezVous" [modal]="true" [style]="{ width: '80vw' }"
-  [draggable]="false" [resizable]="false">
-  <div class="row">
-    <div class="col">
-      <div class="service-time">
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>
-              <h4>Coiffure</h4>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>
-              <mat-icon>schedule</mat-icon> 90 minutes
-            </p>
-            <p>
-              <mat-icon>money</mat-icon> 50 Ar
-            </p>
-          </mat-card-content>
-        </mat-card>
-        <br>
-        <h4>Liste des Employés Disponibles</h4>
-        <mat-selection-list [multiple]="false">
-          <mat-list-option>Jean Lucien</mat-list-option>
-          <mat-list-option>Jean Lucien</mat-list-option>
-          <mat-list-option>Jean Lucien Tolojanahary</mat-list-option>
-          <mat-list-option>Jean Lucien</mat-list-option>
-          <mat-list-option>Jean Lucien</mat-list-option>
-          <mat-list-option>Jean Lucien</mat-list-option>
-          <mat-list-option>Jean Lucien</mat-list-option>
-        </mat-selection-list>
-        <i class="pi pi-angle-double-left" style="float:left;padding-left: 10px;"></i>
-        <i class="pi pi-angle-double-right" style="float:right;padding-right: 20px;"></i>
+    <p-dialog header="Prendre rendez-vous" [(visible)]="showModalRendezVous" [modal]="true" [style]="{ width: '80vw' }"
+      [draggable]="false" [resizable]="false">
+      <div class="row">
+        <div class="col">
+          <div class="service-time">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>
+                  <h4>Coiffure</h4>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  <mat-icon>schedule</mat-icon> 90 minutes
+                </p>
+                <p>
+                  <mat-icon>money</mat-icon> 50 Ar
+                </p>
+              </mat-card-content>
+            </mat-card>
+            <br>
+            <h4>Liste des Employés Disponibles</h4>
+            <mat-selection-list [multiple]="false">
+              <mat-list-option>Jean Lucien</mat-list-option>
+              <mat-list-option>Jean Lucien</mat-list-option>
+              <mat-list-option>Jean Lucien Tolojanahary</mat-list-option>
+              <mat-list-option>Jean Lucien</mat-list-option>
+              <mat-list-option>Jean Lucien</mat-list-option>
+              <mat-list-option>Jean Lucien</mat-list-option>
+              <mat-list-option>Jean Lucien</mat-list-option>
+            </mat-selection-list>
+            <i class="pi pi-angle-double-left" style="float:left;padding-left: 10px;"></i>
+            <i class="pi pi-angle-double-right" style="float:right;padding-right: 20px;"></i>
+          </div>
+        </div>
+        <div class="col">
+          <app-horaire-ouverture width="20%" title="Horaire du travail"></app-horaire-ouverture>
+        </div>
+        <div class="col">
+          <p>Veuillez vérifier l'horaire de travail de l'employé avant de sélectionner une date.</p>
+          <p-calendar [(ngModel)]="dateRendezVous" [showTime]="true" [showSeconds]="true" [inline]="true"></p-calendar>
+          <p>{{dateRendezVous | date: 'MMM d, y, h:mm:ss a' }}</p>
+          <button style="float:right" mat-raised-button>Enregistrer</button>
+        </div>
       </div>
-    </div>
-    <div class="col">
-      <app-horaire-ouverture width="20%" title="Horaire du travail"></app-horaire-ouverture>
-    </div>
-    <div class="col">
-      <p>Veuillez vérifier l'horaire de travail de l'employé avant de sélectionner une date.</p>
-      <p-calendar [(ngModel)]="dateRendezVous" [showTime]="true" [showSeconds]="true" [inline]="true"></p-calendar>
-      <p>{{dateRendezVous | date: 'MMM d, y, h:mm:ss a' }}</p>
-      <button style="float:right" mat-raised-button>Enregistrer</button>
-    </div>
-  </div>
-</p-dialog>
+    </p-dialog>

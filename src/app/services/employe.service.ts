@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { Injectable } from '@angular/core';
 export interface TempEmploye {
     _id: Object,
     nom: String,
@@ -49,15 +50,17 @@ const ELEMENT_DATA: TempEmploye[] =
         }
     ];
 
-import { Injectable } from '@angular/core';
-
 @Injectable({
     providedIn: 'root'
 })
-export class EmployeeService {
+export class EmployeeServiceTest {
     constructor() { }
 
     getEmployees(): TempEmploye[] {
         return ELEMENT_DATA;
+    }
+
+    getEmployeeById(id: string): TempEmploye | undefined {
+        return ELEMENT_DATA.find(employee => employee._id === id);
     }
 }

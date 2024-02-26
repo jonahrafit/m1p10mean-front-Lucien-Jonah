@@ -16,6 +16,7 @@ import { SalonService } from '../../services/salonService/salon.service';
 import { catchError } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../services/employee/employee.service';
+import { IEmployeeResponse } from '../../models/IEmployeeResponse';
 // import { SalonService, SalonServiceModel } from '../../services/salonService.service';
 interface ServiceData {
   page: number;
@@ -69,11 +70,14 @@ export class AcceuilComponent {
   dateRendezVous: Date | undefined;
   employeeHasService!: IEmployeeResponse;
 
-  constructor(private http: HttpClient, private salonService: SalonService, private employeService: EmployeeService) {
+  constructor(private http: HttpClient,
+    private salonService: SalonService,
+    private employeService: EmployeeService) {
   }
 
   ngOnInit(): void {
-    this.getSalonServices(this.currentPage, this.pageSize);
+    this.getSalonServices(this.currentPage,
+      this.pageSize);
   }
 
   private getSalonServices(page = 1, size = 4) {
@@ -83,7 +87,6 @@ export class AcceuilComponent {
       this.totalPages = Math.ceil(this.salonServicesData.total / size);
     });
   }
-
 
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -99,12 +102,6 @@ export class AcceuilComponent {
     this.getSalonServices(this.currentPage, this.pageSize);
   }
 
-
-  /* exemple pour simulation */
-  invoiceItems: any[] = [
-    { name: 'Maquillage jour', duration: '60 min', price: 10000 },
-    { name: 'Coiffure spéciale', duration: '45 min', price: 8000 },
-  ];
 
   displayedColumns: string[] = ['name', 'duration', 'price'];
 

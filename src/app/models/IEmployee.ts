@@ -1,4 +1,7 @@
-interface IEmployee {
+import { IHoraireTravail } from "./IHoraireTravail";
+import { IService } from "./IService";
+
+export interface IEmployee {
     _id: string;
     nom: string;
     prenom: string;
