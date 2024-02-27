@@ -4,6 +4,17 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
+      @if (horaireTravail && horaireTravail.length > 0 ) {
+      @for (item of horaireTravail; track $index) {
+      <mat-list-item>
+        <span matListItemTitle>{{item.jour}}</span>
+        @for (t of item.temps; track $index) {
+        <span matListItemLine>{{t.temps_debut}} - {{t.temps_fin}}</span>
+        }
+      </mat-list-item>
+      }
+      }
+      @else {
       <mat-list-item>
         <span matListItemTitle>Lundi</span>
         <span matListItemLine>08:00 - 15:00</span>
@@ -32,6 +43,9 @@
         <span matListItemTitle>Dimanche</span>
         <span matListItemLine>Fermé</span>
       </mat-list-item>
+      }
+
+
     </mat-list>
   </mat-card-content>
 </mat-card>

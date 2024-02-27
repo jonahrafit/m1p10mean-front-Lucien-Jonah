@@ -7,6 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { IHoraireTravail } from '../../models/IHoraireTravail';
 
 @Component({
   selector: 'app-horaire-ouverture',
@@ -24,6 +25,6 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class HoraireOuvertureComponent {
   @Input() width: string = '20%';
-  @Input() horaireTravail: any;
+  @Input() horaireTravail!: IHoraireTravail[];
   @Input() title!: string;
 }

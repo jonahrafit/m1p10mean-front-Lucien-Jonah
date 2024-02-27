@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
@@ -10,18 +10,21 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { DialogModule } from 'primeng/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { CalendarModule } from 'primeng/calendar';
+import moment from 'moment';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 import { HoraireOuvertureComponent } from '../../component/horaire-ouverture/horaire-ouverture.component';
 import { SalonService } from '../../services/salonService/salon.service';
-import { catchError } from 'rxjs';
+import { Subscription, catchError } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../services/employee/employee.service';
 import { IEmployeeResponse } from '../../models/IEmployeeResponse';
-// import { SalonService, SalonServiceModel } from '../../services/salonService.service';
+import { IEmployee } from '../../models/IEmployee';
 interface ServiceData {
   page: number;
   size: number;
-  services: any[]; // Vous pouvez remplacer any[] par le type spécifique des services si vous le connaissez
+  services: any[];
 }
 
 interface SalonServiceModel {
@@ -54,25 +57,40 @@ interface Salon {
     DialogModule,
     MatSelectModule,
     CalendarModule,
-    FormsModule
+    FormsModule,
+    ToastModule
+  ],
+  providers: [
+    MessageService
   ],
   templateUrl: './acceuil.component.html',
   styleUrls: ['./acceuil.component.css']
 })
-export class AcceuilComponent {
+export class AcceuilComponent implements OnDestroy {
   title = 'salon-beaute';
   salonServicesData!: SalonServiceModel;
   currentPage: number = 1;
   pageSize: number = 4;
   totalPages: number = 0;
-  serviceIdSelected!: string;
+  currentPageEmployeeByService: number = 1;
+  pageSizeEmployeeByService: number = 7;
+  totalPagesEmployeeByService: number = 0;
+  _serviceSelected!: Salon;
   showModalRendezVous = false;
   dateRendezVous: Date | undefined;
-  employeeHasService!: IEmployeeResponse;
+  _employeeHasService: IEmployeeResponse | undefined;
+  subscritpions: Subscription[] = [];
+  _employeHasServiceSelected: IEmployee | undefined;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private salonService: SalonService,
+    private messageService: MessageService,
     private employeService: EmployeeService) {
+  }
+
+  ngOnDestroy(): void {
+    this.subscritpions.forEach(sub => sub.unsubscribe());
   }
 
   ngOnInit(): void {
@@ -81,11 +99,11 @@ export class AcceuilComponent {
   }
 
   private getSalonServices(page = 1, size = 4) {
-    this.salonService.getServices(page, size).subscribe(data => {
-      console.log("🚀 ~ AcceuilComponent ~ this.salonService.getServices ~ data:", data);
+    const sub = this.salonService.getServices(page, size).subscribe(data => {
       this.salonServicesData = data as SalonServiceModel;
       this.totalPages = Math.ceil(this.salonServicesData.total / size);
     });
+    this.subscritpions.push(sub);
   }
 
   nextPage(): void {
@@ -102,24 +120,64 @@ export class AcceuilComponent {
     this.getSalonServices(this.currentPage, this.pageSize);
   }
 
+  nextPageEmployeeByService(): void {
+    if (this.currentPageEmployeeByService < this.totalPagesEmployeeByService) {
+      this.currentPageEmployeeByService++;
+    }
+    this.getEmployeesHasService(this.currentPageEmployeeByService, this.pageSizeEmployeeByService);
+  }
+
+  previousPageEmployeeByService(): void {
+    if (this.currentPageEmployeeByService > 1) {
+      this.currentPageEmployeeByService--;
+    }
+    this.getEmployeesHasService(this.currentPageEmployeeByService, this.pageSizeEmployeeByService);
+  }
+
 
   displayedColumns: string[] = ['name', 'duration', 'price'];
 
 
-  prendreRendezVous(serviceId: string) {
-    this.serviceIdSelected = serviceId;
+  prendreRendezVous(service: Salon) {
+    this._serviceSelected = service;
     this.dateRendezVous = new Date();
     this.showModalRendezVous = true;
-    // TODO: GET EMPLOYEES WHICH HAS THE SERVICE SELECTED
-    // 
+    this.getEmployeesHasService();
   }
 
-  // getEmployeesHasService(serviceId: string) {
-  //   this.employeService.getEmployeeHasService(serviceId, 1, 10)
-  //     .subscribe(response => {
+  getEmployeesHasService(page = 1, size = 7) {
+    const sub = this.employeService.getEmployeeHasService(this._serviceSelected._id, page, size)
+      .subscribe(response => {
+        this._employeeHasService = response as IEmployeeResponse;
+      });
+    this.subscritpions.push(sub);
+  }
 
-  //     })
-  // }
+  employeHasServiceSelected(employe: IEmployee) {
+    this._employeHasServiceSelected = employe
+  }
+
+  initializeModalRendezVous() {
+    this.showModalRendezVous = false;
+    this._employeHasServiceSelected = undefined;
+    this._employeeHasService = undefined;
+  }
+
+  enregistreRendezVous() {
+    if (this._employeHasServiceSelected && this.dateRendezVous) {
+      const date = moment(this.dateRendezVous);
+      const formattedDate = date.format('YYYY-MM-DDTHH:mm:ss.SSSZ').replace(date.utcOffset().toString(), '+00:00');
+
+      const sub = this.employeService.enregistrerRendezVous(this._serviceSelected._id, this._employeHasServiceSelected?._id, formattedDate)
+        .subscribe(response => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Enregistrement rendez-vous reussie' })
+          console.log("🚀 ~ AcceuilComponent ~ enregistreRendezVous ~ response:", response);
+          this.initializeModalRendezVous();
+        });
+      this.subscritpions.push(sub);
+    }
+
+  }
 
 
 }

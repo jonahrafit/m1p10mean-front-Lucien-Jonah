@@ -44,4 +44,9 @@ export class EmployeeService {
     return this.httpClient.get<any[]>(`${this.BACK_END_URL}/rendez-vous/employee/${id}/tous`, { headers });
   }
 
+  public enregistrerRendezVous(serviceId: string, employeId: string, dateRendezVous: any) {
+    const clientId = '65cd0b59be55f90616207a16';
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post(`${this.BACK_END_URL}/rendez-vous/${clientId}/${serviceId}/${employeId}`, { dateRendezVous }, { headers });
+  }
 }

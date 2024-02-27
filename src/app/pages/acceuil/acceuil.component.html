@@ -18,7 +18,9 @@
 <div class="container">
   <div id="nos-services">
     <section class="nos-services">
-      <h3>Nos Services</h3>
+
+      @if (salonServicesData) {
+      <h3>Nos Services ({{ salonServicesData.total }})</h3>
       <div class="services-grid">
         <div *ngFor="let service of salonServicesData.services" class="service-item">
           <mat-card class="example-card">
@@ -36,11 +38,14 @@
               </p>
             </mat-card-content>
             <mat-card-actions>
-              <button mat-stroked-button (click)="prendreRendezVous(service._id)" color="accent">Prendre RDV</button>
+              <button mat-stroked-button (click)="prendreRendezVous(service)" color="accent">Prendre RDV</button>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
+
+      }
+
       <div class="pagination">
         <button class="btn-page" (click)="previousPage()">Précédent</button>
         <p>Page {{ currentPage }} / {{ totalPages }}</p>
@@ -93,3 +98,66 @@
         </div>
       </div>
     </p-dialog>
+
+    <p-dialog (onHide)="initializeModalRendezVous()" header="Prendre rendez-vous" [(visible)]="showModalRendezVous"
+      [modal]="true" [style]="{ width: '80vw' }" [draggable]="false" [resizable]="false">
+      <div class="row">
+        <div class="col">
+          <div class="service-time">
+            @if (_serviceSelected) {
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title>
+                  <h4>{{_serviceSelected.nom}}</h4>
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  <mat-icon>schedule</mat-icon> {{_serviceSelected.duree}} minutes
+                </p>
+                <p>
+                  <mat-icon>money</mat-icon> {{_serviceSelected.prix}} Ar
+                </p>
+              </mat-card-content>
+            </mat-card>
+            }
+
+            <br>
+            <h4>Liste des Employés Disponibles</h4>
+            <mat-selection-list [multiple]="false">
+              @if (_employeeHasService) {
+              @for (emp of _employeeHasService.employees; track emp) {
+              <mat-list-option (click)="employeHasServiceSelected(emp)" [value]="emp._id">{{emp.nom}} {{emp.prenom}}
+              </mat-list-option>
+              }
+              }
+
+            </mat-selection-list>
+            @if (_employeeHasService && _employeeHasService.total &&
+            _employeeHasService.total>pageSizeEmployeeByService) {
+            <i (click)="previousPageEmployeeByService()" class="pi pi-angle-double-left"
+              style="float:left;padding-left: 10px;"></i>
+            <i (click)="nextPageEmployeeByService()" class="pi pi-angle-double-right"
+              style="float:right;padding-right: 20px;"></i>
+            }
+
+          </div>
+        </div>
+        <div class="col">
+          @if (_employeHasServiceSelected) {
+          <app-horaire-ouverture width="20%" title="Horaire du travail"
+            [horaireTravail]="_employeHasServiceSelected.horaireTravail "></app-horaire-ouverture>
+          }
+        </div>
+        <div class="col">
+          <p>Veuillez vérifier l'horaire de travail de l'employé avant de sélectionner une date.</p>
+          <p-calendar [(ngModel)]="dateRendezVous" [showTime]="true" [showSeconds]="true" [inline]="true"></p-calendar>
+          <p>{{dateRendezVous | date: 'yyyy-MM-dd HH:mm' }}</p>
+          @if (_employeHasServiceSelected) {
+          <button style="float:right" (click)="enregistreRendezVous()" mat-raised-button>Enregistrer</button>
+          }
+        </div>
+      </div>
+    </p-dialog>
+
+    <p-toast></p-toast>
