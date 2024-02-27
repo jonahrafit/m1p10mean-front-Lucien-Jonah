@@ -20,6 +20,8 @@ import { IEmployee } from '../../models/IEmployee';
 import { EmployeeService } from '../../services/employee/employee.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AjoutHoraireTravailComponent } from '../../component/ajout-horaire-travail/ajout-horaire-travail.component';
+import { Observable } from 'rxjs';
+import { RendezVousService } from '../../services/rendez-vous/rendez-vous.service';
 @Component({
   selector: 'app-manage-employe-details',
   standalone: true,
@@ -35,28 +37,43 @@ import { AjoutHoraireTravailComponent } from '../../component/ajout-horaire-trav
   templateUrl: './manage-employe-details.component.html',
   styleUrl: './manage-employe-details.component.css'
 })
-export class ManageEmployeDetailsComponent implements OnInit {
+export class ManageEmployeDetailsComponent {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent | undefined;
   calendar: Calendar | undefined;
   employee: IEmployee | undefined;
-  event_list: any;
-
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      console.log('Identifiant de l\'employé:', id);
-      this.employeeService.getEmployeeById(id).subscribe(data => {
-        console.log("🚀 ~ ManageEmployeComponent ~ this.employeeService.getEmployeeById ~ data:", data);
-        this.employee = data as IEmployee;
-      });
-    })
-  }
+  event_list: any[] = []; // Déclarer event_list comme un tableau d'objets de type any
 
   constructor(private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
     private employeeService: EmployeeService,
+    private rendezVousService: RendezVousService,
     private dialog: MatDialog,
     private dialogHT: MatDialog) {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      console.log('Identifiant de l\'employé:', id);
+      this.getRendezVousByEmploye(id);
+      this.updateCalendarOptions();
+    });
+  }
+
+  getRendezVousByEmploye(id: string) {
+    this.employeeService.getEmployeeById(id).subscribe(data => {
+      console.log("🚀 ~ Employee By Id ~ data:", data);
+      this.employee = data as IEmployee;
+    });
+    this.employeeService.getListRendezVous(id).subscribe(data => {
+      console.log("🚀 ~ Rendezvous by employe ~ data:", data);
+      this.event_list = this.rendezVousService.transformRendezVousData(data);
+    });
+    console.log("🚀 ~ INITIAL_EVENTS", INITIAL_EVENTS);
+  }
+
+  updateCalendarOptions() {
+    this.calendarOptions.update(options => ({
+      ...options,
+      initialEvents: this.event_list
+    }));
   }
 
   getCurrentDateString(): string {
@@ -64,7 +81,6 @@ export class ManageEmployeDetailsComponent implements OnInit {
   }
 
   currentEvents = signal<EventApi[]>([]);
-
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
@@ -73,16 +89,15 @@ export class ManageEmployeDetailsComponent implements OnInit {
       timeGridPlugin,
       listPlugin,
     ],
-    locales: [frLocale], // Définir la localisation française
-    locale: 'fr', // Définir la langue du calendrier en français
+    locales: [frLocale],
+    locale: 'fr',
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-    // initialView: 'dayGridMonth',
     initialView: 'timeGridWeek',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    initialEvents: this.event_list,
     weekends: true,
     editable: true,
     selectable: false,
@@ -91,8 +106,8 @@ export class ManageEmployeDetailsComponent implements OnInit {
     // select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    slotMinTime: '08:00:00',
-    slotMaxTime: '19:00:00'
+    // slotMinTime: '08:00:00',
+    // slotMaxTime: '19:00:00'
   });
 
   handleCalendarToggle() {
@@ -110,7 +125,7 @@ export class ManageEmployeDetailsComponent implements OnInit {
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
+    calendarApi.unselect();
 
     if (title) {
       calendarApi.addEvent({
@@ -137,8 +152,9 @@ export class ManageEmployeDetailsComponent implements OnInit {
     //     event.setProp('backgroundColor', 'green'); // Change la couleur de fond de l'événement à vert
     //   }
     // });
+    this.updateCalendarOptions();
     this.currentEvents.set(events);
-    this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
+    this.changeDetector.detectChanges();
   }
 
   openModalAjoutHoraireTravail() {
@@ -146,10 +162,7 @@ export class ManageEmployeDetailsComponent implements OnInit {
   }
 
   joursSemaine = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
-  // Assurez-vous d'avoir la date actuelle du logiciel
   dateActuelle = new Date();
-
-  // Créez une fonction pour formater les plages horaires
   formatPlagesHoraires(plagesHoraires: any[]) {
     let plagesFormatees = '';
 
@@ -167,30 +180,6 @@ export class ManageEmployeDetailsComponent implements OnInit {
     const dateCreationPlage = new Date(dateCreation);
     return dateCreationPlage <= this.dateActuelle;
   }
-  ngAfterViewInit(): void {
-    // Accédez à l'instance du calendrier une fois que la vue est initialisée
-    this.calendar = this.calendarComponent?.getApi();
-    console.log('CALENDAR ', this.calendar);
-    // Obtenez les dates de début et de fin actives
-    this.calendar?.on('datesSet', (arg) => {
-      const activeStart = arg.start;
-      const activeEnd = arg.end;
-      console.log('Dates de début et de fin actives :', activeStart, activeEnd);
 
-      // Récupérez les événements entre les dates de début et de fin actives
-      if (activeStart && activeEnd) {
-        this.getEventsBetweenDates(this.employee?._id, activeStart, activeEnd);
-      }
-    });
-  }
-
-  getEventsBetweenDates(id: string | undefined, debut: Date | undefined, fin: Date | undefined) {
-    if (id && debut && fin) {
-      this.employeeService.getListRendezVousBetweenDate(id, debut.toISOString(), fin.toISOString())
-        .subscribe(events => {
-          this.event_list = events;
-        });
-    }
-  }
 }
 

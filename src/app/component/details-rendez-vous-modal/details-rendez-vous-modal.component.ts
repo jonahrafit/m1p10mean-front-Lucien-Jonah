@@ -3,10 +3,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EventApi } from '@fullcalendar/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-details-rendez-vous-modal',
   standalone: true,
-  imports: [MatDialogModule, MatCardModule],
+  imports: [MatDialogModule, MatCardModule, CommonModule],
   templateUrl: './details-rendez-vous-modal.component.html',
   styleUrl: './details-rendez-vous-modal.component.css'
 })

@@ -5,9 +5,9 @@
             <p>Client : {{ data.extendedProps['client'].nom }}</p>
             <p>Son email: {{ data.extendedProps['client'].email }}</p>
             <!-- <p>Date : {{ dateRendezVous | date:'fullDate' }}</p>-->
-            <p>Début : {{ data.start }}</p>
-            <p>Fin : {{ data.end }}</p>
-            <h3>Date du rendez-vous : {{data.extendedProps['date_rendez_vous']}}</h3>
+            <p>Début : {{ data.start | date:'HH:mm'}}</p>
+            <p>Fin : {{ data.end | date:'HH:mm'}}</p>
+            <h3>Date du rendez-vous : {{ data.extendedProps['date_rendez_vous'] | date:'dd/MM/yyyy' }}</h3>
         </div>
 
         <table class="tableau">
@@ -30,7 +30,7 @@
     </div>
     <mat-dialog-actions>
         <div style="display: flex; justify-content: flex-end;">
-            <button mat-button class="annuler">
+            <button mat-button class="annuler" (click)="onCloseClick()">
                 Annuler
             </button>
             <div style="margin-left: 10px;">

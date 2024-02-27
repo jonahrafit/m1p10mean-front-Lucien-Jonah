@@ -39,4 +39,9 @@ export class EmployeeService {
     return this.httpClient.get<any[]>(`${this.BACK_END_URL}/rendez-vous/employee/${id}/${debut}/${fin}`, { headers });
   }
 
+  public getListRendezVous(id: string): Observable<any[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<any[]>(`${this.BACK_END_URL}/rendez-vous/employee/${id}/tous`, { headers });
+  }
+
 }
