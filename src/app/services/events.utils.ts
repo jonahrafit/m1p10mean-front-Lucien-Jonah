@@ -35,7 +35,8 @@ export function generateRandomEvents(): EventInput[] {
             extendedProps: {
                 client: {
                     id: clientId,
-                    nom: `Client ${i + 1}`
+                    nom: `Client ${i + 1}`,
+                    mail: 'client@gmail.com'
                 },
                 services: {
                     id: serviceId,

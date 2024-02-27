@@ -49,5 +49,6 @@ pre {
 }
 
 .auto-height {
-    height: auto;
+    height: auto !important;
+    /* Définit la hauteur sur auto */
 }

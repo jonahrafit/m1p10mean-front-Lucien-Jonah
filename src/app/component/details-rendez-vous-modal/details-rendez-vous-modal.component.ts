@@ -14,7 +14,10 @@ export class DetailsRendezVousModalComponent {
   constructor(
     public dialogRef: MatDialogRef<DetailsRendezVousModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EventApi
-  ) { console.log(data); }
+  ) {
+    console.log(data);
+    console.log('DATA = ', data.extendedProps['fait']);
+  }
 
   onCloseClick(): void {
     this.dialogRef.close();

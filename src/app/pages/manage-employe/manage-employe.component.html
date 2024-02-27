@@ -34,12 +34,12 @@
     </ng-container>
 
     <ng-container matColumnDef="isValide">
-        <th mat-header-cell *matHeaderCellDef> Statut de compte </th>
+        <th mat-header-cell *matHeaderCellDef>Statut de compte</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
             'non-confirmé': !element.estConfirme,
             'non-validé': !element.estValide && element.estConfirme,
             'validé': element.estValide && element.estConfirme
-          }">
+        }">
             {{ !element.estValide ?
             'En attente de validation' :
             !element.estConfirme ?
@@ -49,16 +49,31 @@
     </ng-container>
 
     <ng-container matColumnDef="Action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let element" [ngClass]="{
             'non-validé': !element.estValide
         }">
-            <button *ngIf="!element.estValide" (click)="validerMail()">Valider</button>&nbsp;
-            <button (click)="goToDetailsPage('65ca6fdebe144d2a5143f202')">Voir Info.</button>
+            <button *ngIf="!element.estValide && element.estConfirme"
+                (click)="confirm(element._id, { estValide: true, estConfirme: true, tauxCommission: 3 })">Valider
+            </button>&nbsp;
+            <button *ngIf="element.estConfirme" (click)="goToDetailsPage(element._id)">Voir Info.
+            </button>
         </td>
     </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <br>
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-confirmDialog>
+        <ng-template pTemplate="message" let-message>
+            <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+                <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        </ng-template>
+    </p-confirmDialog>
+</div>

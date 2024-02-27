@@ -1,20 +1,52 @@
 <h2 mat-dialog-title>{{ data.title }}</h2>
 <mat-dialog-content class="mat-typography">
-    <h3>Client</h3>
-    <p>Client: {{ data.extendedProps['client'].nom }}</p>
-    <h3>Service</h3>
-    <p>Nom du service: {{ data.extendedProps['services'].nom }} minutes</p>
-    <p>Durée: {{ data.extendedProps['services'].duree }} minutes</p>
-    <p>{{ data.extendedProps['services'].fait ? 'FAIT!' : 'NON FAIT!'}}</p>
-    <h3>Date du rendez-vous : {{data.extendedProps['services'].date_rendez_vous}}</h3>
+    <div class="rendez-vous-container">
+        <div class="info">
+            <p>Client : {{ data.extendedProps['client'].nom }}</p>
+            <p>Son email: {{ data.extendedProps['client'].email }}</p>
+            <!-- <p>Date : {{ dateRendezVous | date:'fullDate' }}</p>-->
+            <p>Début : {{ data.start }}</p>
+            <p>Fin : {{ data.end }}</p>
+            <h3>Date du rendez-vous : {{data.extendedProps['date_rendez_vous']}}</h3>
+        </div>
+
+        <table class="tableau">
+            <thead>
+                <tr>
+                    <th>Prestation</th>
+                    <th>Durée</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ data.extendedProps['services'].nom }}</td>
+                    <td>{{ data.extendedProps['services'].duree }} minutes</td>
+                    <td>30 000 Ar</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
     <mat-dialog-actions>
-        <div style="display: flex; justify-content: space-between;">
-            <div>
-                <button mat-button mat-dialog-close>Annuler ce rendez-vous</button>&nbsp;
-                <button mat-button (click)="onCloseClick()" cdkFocusInitial>Fermer</button>&nbsp;&nbsp;
+        <div style="display: flex; justify-content: flex-end;">
+            <button mat-button class="annuler">
+                Annuler
+            </button>
+            <div style="margin-left: 10px;">
+                <button mat-button class="supprimer">
+                    Supprimer
+                </button>
             </div>
-            <div>
-                <button mat-button (click)="onCloseClick()" cdkFocusInitial>Marquer comme FAIT</button>
+            <div style="margin-left: 10px;">
+                <button mat-button class="enregistrer">
+                    Enregistrer
+                </button>
+            </div>
+            <div style="margin-left: 10px;">
+                <button mat-button class="pas-venu">
+                    Pas Venu
+                </button>
             </div>
         </div>
     </mat-dialog-actions>

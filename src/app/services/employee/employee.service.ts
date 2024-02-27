@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EnvService } from '../envSerivce/env.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IEmployee } from '../../models/IEmployee';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +28,15 @@ export class EmployeeService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.get(`${this.BACK_END_URL}/employees/${page}/${size}`, { headers });
   }
+
+  public valideCompteEmploye(id: string, employeTemp: any) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.put(`${this.BACK_END_URL}/employees/${id}`, employeTemp, { headers });
+  }
+
+  public getListRendezVousBetweenDate(id: string, debut: string, fin: string): Observable<any[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.get<any[]>(`${this.BACK_END_URL}/rendez-vous/employee/${id}/${debut}/${fin}`, { headers });
+  }
+
 }

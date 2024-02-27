@@ -1,0 +1,62 @@
+.rendez-vous-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.titre {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.info p {
+    margin: 5px 0;
+}
+
+.tableau {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.tableau th,
+.tableau td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.tableau th {
+    background-color: #f2f2f2;
+}
+
+.annuler {
+    background-color: #ff6666;
+    color: #fff;
+}
+
+.supprimer {
+    background-color: #cc3300;
+    color: #fff;
+}
+
+.enregistrer {
+    background-color: #33cc33;
+    color: #fff;
+}
+
+.pas-venu {
+    background-color: #999;
+    color: #fff;
+}
+
+button {
+    left: 65%;
+    bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}

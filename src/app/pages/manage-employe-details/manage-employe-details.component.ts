@@ -2,11 +2,11 @@ import { ActivatedRoute } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-import { Component, signal, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, signal, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -36,20 +36,19 @@ import { AjoutHoraireTravailComponent } from '../../component/ajout-horaire-trav
   styleUrl: './manage-employe-details.component.css'
 })
 export class ManageEmployeDetailsComponent implements OnInit {
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent | undefined;
+  calendar: Calendar | undefined;
   employee: IEmployee | undefined;
+  event_list: any;
 
-  private getEmployeeById(id: string) {
-    this.employeeService.getEmployeeById(id).subscribe(data => {
-      console.log("🚀 ~ ManageEmployeComponent ~ this.employeeService.getEmployeeById ~ data:", data);
-      this.employee = data as IEmployee;
-    });
-  }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = params['id'];
       console.log('Identifiant de l\'employé:', id);
-      this.getEmployeeById(id);
+      this.employeeService.getEmployeeById(id).subscribe(data => {
+        console.log("🚀 ~ ManageEmployeComponent ~ this.employeeService.getEmployeeById ~ data:", data);
+        this.employee = data as IEmployee;
+      });
     })
   }
 
@@ -58,6 +57,10 @@ export class ManageEmployeDetailsComponent implements OnInit {
     private employeeService: EmployeeService,
     private dialog: MatDialog,
     private dialogHT: MatDialog) {
+  }
+
+  getCurrentDateString(): string {
+    return new Date().toISOString().split('T')[0];
   }
 
   currentEvents = signal<EventApi[]>([]);
@@ -82,12 +85,14 @@ export class ManageEmployeDetailsComponent implements OnInit {
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
-    selectable: true,
+    selectable: false,
     selectMirror: true,
     dayMaxEvents: true,
-    select: this.handleDateSelect.bind(this),
+    // select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
+    eventsSet: this.handleEvents.bind(this),
+    slotMinTime: '08:00:00',
+    slotMaxTime: '19:00:00'
   });
 
   handleCalendarToggle() {
@@ -120,17 +125,18 @@ export class ManageEmployeDetailsComponent implements OnInit {
 
   // Dans la méthode handleEventClick
   handleEventClick(clickInfo: EventClickArg) {
-    const dialogRef = this.dialog.open(DetailsRendezVousModalComponent, {
+    this.dialog.open(DetailsRendezVousModalComponent, {
       data: clickInfo.event
     });
   }
 
   handleEvents(events: EventApi[]) {
-    /* events.forEach(event => {
-      if (event.extendedProps && event.extendedProps['fait']) {
-        event.setProp('backgroundColor', 'green'); // Change la couleur de fond de l'événement à vert
-      }
-    }); */
+    // events.forEach(event => {
+    //   console.log('EVENTS ========= ', event.extendedProps);
+    //   if (event.extendedProps && event.extendedProps['fait']) {
+    //     event.setProp('backgroundColor', 'green'); // Change la couleur de fond de l'événement à vert
+    //   }
+    // });
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
@@ -161,7 +167,30 @@ export class ManageEmployeDetailsComponent implements OnInit {
     const dateCreationPlage = new Date(dateCreation);
     return dateCreationPlage <= this.dateActuelle;
   }
+  ngAfterViewInit(): void {
+    // Accédez à l'instance du calendrier une fois que la vue est initialisée
+    this.calendar = this.calendarComponent?.getApi();
+    console.log('CALENDAR ', this.calendar);
+    // Obtenez les dates de début et de fin actives
+    this.calendar?.on('datesSet', (arg) => {
+      const activeStart = arg.start;
+      const activeEnd = arg.end;
+      console.log('Dates de début et de fin actives :', activeStart, activeEnd);
 
+      // Récupérez les événements entre les dates de début et de fin actives
+      if (activeStart && activeEnd) {
+        this.getEventsBetweenDates(this.employee?._id, activeStart, activeEnd);
+      }
+    });
+  }
 
+  getEventsBetweenDates(id: string | undefined, debut: Date | undefined, fin: Date | undefined) {
+    if (id && debut && fin) {
+      this.employeeService.getListRendezVousBetweenDate(id, debut.toISOString(), fin.toISOString())
+        .subscribe(events => {
+          this.event_list = events;
+        });
+    }
+  }
 }
 
