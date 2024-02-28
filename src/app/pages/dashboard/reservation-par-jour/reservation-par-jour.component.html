@@ -1,0 +1,9 @@
+<div id="chart">
+    <div class="chart-controls">
+        <button mat-button [class.active]="granularity === 'jour'" (click)="toggleGranularity('jour')">Jour</button>
+        <button mat-button [class.active]="granularity === 'mois'" (click)="toggleGranularity('mois')">Mois</button>
+    </div>
+    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [plotOptions]="chartOptions.plotOptions"
+        [xaxis]="chartOptions.xaxis" [title]="chartOptions.title">
+    </apx-chart>
+</div>

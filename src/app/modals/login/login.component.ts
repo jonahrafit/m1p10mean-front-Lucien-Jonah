@@ -42,9 +42,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     Validators.email,
   ]);
   passwordFormControl = new FormControl('', [Validators.required]);
-  constructor() {}
-  ngOnDestroy(): void {}
-  ngOnInit(): void {}
+  constructor() { }
+  ngOnDestroy(): void { }
+  ngOnInit(): void { }
 
   onHide() {
     this.closeModal();

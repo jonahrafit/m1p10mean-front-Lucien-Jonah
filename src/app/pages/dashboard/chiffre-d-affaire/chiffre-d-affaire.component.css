@@ -1,0 +1,18 @@
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 12px;
+    border-radius: 5px;
+    height: 30px;
+    text-align: center;
+}
+
+button.active {
+    background-color: #2196F3;
+    color: white;
+}
