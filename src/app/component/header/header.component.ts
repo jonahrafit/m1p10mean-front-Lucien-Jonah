@@ -43,7 +43,7 @@ export class HeaderComponent {
 
   @Output() visible: boolean = false;
   @Output() confirmLogout = new EventEmitter<void>();
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   role: string = 'manager';
   
   showConfirmationModalLogout: boolean = false;
