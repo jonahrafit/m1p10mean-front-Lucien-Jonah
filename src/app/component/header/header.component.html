@@ -3,14 +3,10 @@
         <div class="logo">GASYMANJA</div>
         <div class="auth-buttons">
             <ul class="menu">
-                <!-- <li><a href="#">Acceuil</a></li> -->
-                <!-- <li><a href="#nos-services">Nos services</a></li>
+                <li><a href="#">Acceuil</a></li>
                 <li><a href="offre-speciale">Les offres spéciales</a></li>
-                <li><a href="#a-propos">A propos</a></li> -->
-
-                <!-- <li><a href="agenda">Mon Agenda</a></li>
-                <li><a href="tache-effectue">Mes tâches effectués</a></li> -->
-
+                <li><a href="agenda">Mon Agenda</a></li>
+                <li><a href="tache-effectue">Mes tâches effectués</a></li>
                 <li><a href="dashboard">Dashboard</a></li>
                 <li><a routerLink="/manage/employe">Gestion des employés</a></li>
                 <li><a routerLink="/manage/service">Gestion des services</a></li>
@@ -20,14 +16,15 @@
                 <button class="btn" (click)="openDialog()">Inscription</button>
             </ng-container>
             <ng-template #userLoggedIn>
-                <!-- <div class="fa-bell-container">
+                <div class="fa-bell-container">
                     <mat-icon matBadge="15" matBadgeColor="warn" class="mat-icon notranslate mat-badge"
                         aria-hidden="false">notifications</mat-icon>
-                </div> -->&nbsp;
+                </div>&nbsp;
                 <div class="user-details">
                     <span>{{ user.nom }} {{ user.prenom }}</span>
                 </div>
-                <div class="fa-logout-container" (click)="openConfirmationModal()">
+                <div class="fa-logout-container" (click)="toLogin()">
+                    <!-- <div class="fa-logout-container" (click)="openConfirmationModal()"> -->
                     <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
                 </div>
 
