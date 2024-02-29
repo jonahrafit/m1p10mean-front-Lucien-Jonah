@@ -44,6 +44,8 @@ export class HeaderComponent {
   @Output() visible: boolean = false;
   @Output() confirmLogout = new EventEmitter<void>();
   isLoggedIn: boolean = true;
+  role: string = 'manager';
+  
   showConfirmationModalLogout: boolean = false;
   user: any = {
     nom: 'Jonah',
@@ -55,7 +57,8 @@ export class HeaderComponent {
   }
 
   toLogin() {
-    this.visible = true;
+    //this.visible = true;
+    this.dialog.open(LoginComponent);
   }
 
   closeModal() {

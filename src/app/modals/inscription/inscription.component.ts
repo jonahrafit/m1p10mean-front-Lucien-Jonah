@@ -39,10 +39,24 @@ import { CommonModule } from '@angular/common';
 export class InscriptionComponent implements OnInit {
   inscriptionFormGroup!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
+  
   ngOnInit(): void {
     this.inscriptionFormGroup = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]],
     });
+  }
+
+  createForm() {
+    this.inscriptionFormGroup = this.formBuilder.group({
+      email: [''],
+    
+      // Add other form controls here and set initial values as needed
+    });
+  }
+
+  isFormEmpty(): boolean {
+    const formValues = this.inscriptionFormGroup.value;
+    return Object.values(formValues).every(value => value === null || value === '');
   }
 }

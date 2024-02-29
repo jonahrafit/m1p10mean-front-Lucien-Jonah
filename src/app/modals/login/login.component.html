@@ -1,7 +1,7 @@
-<div class="card flex justify-content-center">
-  <p-dialog header="Se connecter" [(visible)]="visible" [modal]="true" [style]="{
-      width: '40vw'
-    }" [draggable]="false" [resizable]="false" (onHide)="onHide()">
+
+<div style="width: 40vw">
+  <h2 mat-dialog-title>Se connecter</h2>
+  <mat-dialog-content>
     <mat-form-field class="w-100">
       <mat-label>Email</mat-label>
       <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com" />
@@ -24,5 +24,5 @@
     <button class="float-end" mat-button disabled>Se connecter</button>
     } @else {<button (click)="seConnecter()" class="float-end" mat-raised-button>
       Se connecter</button>}
-  </p-dialog>
+  </mat-dialog-content>
 </div>

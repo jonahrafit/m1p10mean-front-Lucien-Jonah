@@ -12,16 +12,14 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { INITIAL_EVENTS } from '../../services/events.utils';
-import { createEventId } from '../../services/events.utils';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailsRendezVousModalComponent } from '../../component/details-rendez-vous-modal/details-rendez-vous-modal.component';
 import { IEmployee } from '../../models/IEmployee';
 import { EmployeeService } from '../../services/employee/employee.service';
 import { MatIconModule } from '@angular/material/icon';
 import { AjoutHoraireTravailComponent } from '../../component/ajout-horaire-travail/ajout-horaire-travail.component';
-import { Observable } from 'rxjs';
 import { RendezVousService } from '../../services/rendez-vous/rendez-vous.service';
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-manage-employe-details',
   standalone: true,
@@ -66,7 +64,6 @@ export class ManageEmployeDetailsComponent {
       console.log("🚀 ~ Rendezvous by employe ~ data:", data);
       this.event_list = this.rendezVousService.transformRendezVousData(data);
     });
-    console.log("🚀 ~ INITIAL_EVENTS", INITIAL_EVENTS);
   }
 
   updateCalendarOptions() {
@@ -129,7 +126,7 @@ export class ManageEmployeDetailsComponent {
 
     if (title) {
       calendarApi.addEvent({
-        id: createEventId(),
+        id: uuidv4(),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
